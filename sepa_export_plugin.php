@@ -140,21 +140,32 @@ class SepaExportPlugin extends Plugin
      *
      * @return array Een numeriek geordend array van acties
      */
+ 
+    
     public function getActions()
-    {
-        return [
-            // Admin (staff) link onder "Billing"
-            [
-                'action' => 'nav_secondary_staff',
-                'uri' => 'plugin/sepa_export/admin_main/index/',
-                'name' => 'SEPA Export',
-                'options' => ['parent' => 'billing/'],
-                'enabled' => 1
-    
-            ]
-        ];
-    }
-    
+{
+    return [
+        // Admin link voor testbatches
+        [
+            'action' => 'nav_secondary_staff',
+            'uri' => 'plugin/sepa_export/admin_main/index/',
+            'name' => 'SEPA Export',
+            'options' => ['parent' => 'billing/'],
+            'enabled' => 1
+        ],
+        // Nieuwe exportlink voor echte factuurdata
+        [
+            'action' => 'export_client_group',
+            'uri' => 'plugin/sepa_export/admin_main/export_client_group/?client_group_id=1',
+            'name' => Language::_('AdminMain.export_client_group', true),
+            'enabled' => 1
+        ]
+    ];
+}
+
+
+
+
     /**
      * Geeft de configuratie van de plugin terug
      *

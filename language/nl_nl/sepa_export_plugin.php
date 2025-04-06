@@ -30,3 +30,7 @@ $lang['SepaExportPlugin.client.change_ideal'] = "Betaling via iDEAL — wij stel
 $lang['SepaExportPlugin.client.change_form'] = "Download het machtigingsformulier en stuur het ingevuld naar support@example.com.";
 $lang['SepaExportPlugin.client.change_button'] = "Machtiging wijzigen via iDEAL";
 $lang['SepaExportPlugin.client.revoked'] = "De machtiging is succesvol ingetrokken.";
+
+$lang['AdminMain.export_client_group'] = "Rechnungen exportieren (Kundengruppe)";
+$lang['AdminMain.export.error_client_group_required'] = "Es muss eine Kundengruppe ausgewählt werden.";
+$lang['AdminMain.export.no_open_invoices'] = "Für diese Kundengruppe gibt es keine offenen Rechnungen.";
