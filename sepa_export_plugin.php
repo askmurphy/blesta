@@ -150,14 +150,7 @@ class SepaExportPlugin extends Plugin
                 'name' => 'SEPA Export',
                 'options' => ['parent' => 'billing/'],
                 'enabled' => 1
-            ],
-            // Clientportaal link onder "Account"
-            [
-                'action' => 'nav_secondary_client',
-                'uri' => 'plugin/sepa_export/client_main/index/',
-                'name' => Language::_('SepaExportPlugin.client.page_title', true),
-                'options' => ['parent' => 'account/'],
-                'enabled' => 1
+    
             ]
         ];
     }
