@@ -1,0 +1,57 @@
+<?php
+/**
+ * manage.pdt
+ * Pagina voor het beheren van de SEPA machtiging (intrekken/wijzigen).
+ */
+?>
+<?php if (isset($page_title) && $page_title): ?>
+    <div class="page-header">
+        <h1><?php echo $this->Html->safe($page_title); ?></h1>
+    </div>
+<?php endif; ?>
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a href="#revoke" data-toggle="tab">
+            <?php echo Language::_('SepaExportPlugin.client.tab_revoke', true); ?>
+        </a>
+    </li>
+    <li>
+        <a href="#change" data-toggle="tab">
+            <?php echo Language::_('SepaExportPlugin.client.tab_change', true); ?>
+        </a>
+    </li>
+</ul>
+
+<div class="tab-content" style="margin-top:20px;">
+    <div id="revoke" class="tab-pane fade in active">
+        <p>
+            <?php
+            if (isset($mandate->iban)) {
+                printf(
+                    Language::_('SepaExportPlugin.client.revoke_text', true),
+                    '<strong>' . $this->Html->safe($mandate->iban) . '</strong>'
+                );
+            } else {
+                echo Language::_('SepaExportPlugin.client.revoke_text', true);
+            }
+            ?>
+        </p>
+        <form method="post" action="<?php echo $this->base_uri; ?>plugin/sepa_export/client_main/manage/">
+            <input type="hidden" name="action" value="cancel" />
+            <button type="submit" class="btn btn-danger">
+                <?php echo Language::_('SepaExportPlugin.client.revoke_button', true); ?>
+            </button>
+        </form>
+    </div>
+    <div id="change" class="tab-pane fade">
+        <p><?php echo Language::_('SepaExportPlugin.client.change_text', true); ?></p>
+        <ul>
+            <li><?php echo Language::_('SepaExportPlugin.client.change_ideal', true); ?></li>
+            <li><?php echo Language::_('SepaExportPlugin.client.change_form', true); ?></li>
+        </ul>
+        <a href="#" class="btn btn-primary">
+            <?php echo Language::_('SepaExportPlugin.client.change_button', true); ?>
+        </a>
+    </div>
+</div>

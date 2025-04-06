@@ -1,0 +1,97 @@
+<?php
+// Titel van de widget/pagina
+$this->WidgetClient->clear();
+// Pas de titel aan indien nodig, of haal de bestaande titel op
+$this->WidgetClient->create($this->_('SepaExportPlugin.client.manage_mandate.page_title', true));
+$this->WidgetClient->startBody();
+
+// Controleer of er een mandaat is en of het niet al ingetrokken is
+if ($mandate && $mandate->status != 'revoked') :
+?>
+
+    <!-- Navigatie Tabs -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" id="revoke-tab" data-toggle="tab" href="#revoke" role="tab" aria-controls="revoke" aria-selected="true">
+                <?php $this->_('SepaExportPlugin.client.tab_revoke'); ?>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="change-tab" data-toggle="tab" href="#change" role="tab" aria-controls="change" aria-selected="false">
+                 <?php $this->_('SepaExportPlugin.client.tab_change'); ?>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Tab Inhoud -->
+    <div class="tab-content" id="myTabContent" style="padding: 15px;">
+
+        <!-- Tab Pane: Machtiging Intrekken -->
+        <div class="tab-pane fade show active" id="revoke" role="tabpanel" aria-labelledby="revoke-tab">
+            <h5><?php $this->_('SepaExportPlugin.client.revoke.title'); ?></h5>
+            <p>
+                <?php echo Language::_(
+                    'SepaExportPlugin.client.revoke.text',
+                    true,
+                    $this->Html->_($mandate->iban ?? 'Uw rekening') // Voeg IBAN dynamisch in
+                ); ?>
+            </p>
+            <p><?php $this->_('SepaExportPlugin.client.revoke.text_alt'); ?></p>
+
+            <?php
+            // Formulier voor intrekken
+            $this->Form->create($this->Html->safe($this->base_uri . 'plugin/sepa_export/client_main/manage/'));
+            $this->Form->fieldHidden('action', 'cancel');
+            ?>
+            <div class="float-right">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-times"></i> <?php $this->_('SepaExportPlugin.client.revoke.button'); ?>
+                </button>
+            </div>
+            <?php $this->Form->end(); ?>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- Tab Pane: Machtiging Wijzigen -->
+        <div class="tab-pane fade" id="change" role="tabpanel" aria-labelledby="change-tab">
+            <h5><?php $this->_('SepaExportPlugin.client.change.title'); ?></h5>
+            <p><?php $this->_('SepaExportPlugin.client.change.text_intro'); ?></p>
+            <ul>
+                <li><strong><?php $this->_('SepaExportPlugin.client.change.option_ideal_title'); ?></strong> <?php $this->_('SepaExportPlugin.client.change.option_ideal_text'); ?></li>
+                <li><strong><?php $this->_('SepaExportPlugin.client.change.option_form_title'); ?></strong>
+                    <?php
+                    // Tekst met link naar formulier
+                    echo Language::_(
+                        'SepaExportPlugin.client.change.option_form_text',
+                        true,
+                        $this->Html->safe('#') // VERVANG '#' door de daadwerkelijke link naar het PDF formulier
+                        // Bijv: $this->Html->safe($this->view_dir . 'assets/forms/machtigingsformulier.pdf') als het in je plugin assets staat
+                    );
+                    ?>
+                 </li>
+            </ul>
+
+            <div class="float-right">
+                <!-- Knop voor iDEAL wijziging -->
+                 <a href="#" class="btn btn-primary"> <!-- VERVANG '#' door de link naar je iDEAL proces -->
+                     <i class="fas fa-credit-card"></i> <?php $this->_('SepaExportPlugin.client.change.button_ideal'); ?>
+                 </a>
+            </div>
+             <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+<?php elseif ($mandate && $mandate->status == 'revoked') : ?>
+    <p><?php $this->_('SepaExportPlugin.client.mandate_already_revoked'); ?></p>
+    <!-- Optioneel: knop om nieuwe aan te vragen -->
+
+<?php else : ?>
+    <p><?php $this->_('SepaExportPlugin.client.no_mandate_found'); ?></p>
+     <!-- Optioneel: knop om aan te vragen -->
+<?php endif; ?>
+
+<?php
+$this->WidgetClient->endBody();
+$this->WidgetClient->end();
+?>

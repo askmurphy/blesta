@@ -1,0 +1,11 @@
+{
+    "version": "1.0.0",
+    "name": "SepaExportPlugin.name",
+    "description": "SepaExportPlugin.description",
+    "authors": [
+        {
+            "name": "Arthur Kerkmeester",
+            "url": "https://www.rhodyon.eu"
+        }
+    ]
+}

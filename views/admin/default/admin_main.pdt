@@ -1,0 +1,35 @@
+<?php
+// Weergeven van de titel
+?>
+<h2><?php echo $this->Html->safe(Language::_('AdminMain.index.boxtitle', true)); ?></h2>
+
+<p>
+    <a class="btn btn-primary" href="<?php echo $this->base_uri; ?>plugin/sepa_export/admin_main/generate/">
+        <i class="fa fa-plus"></i> <?php echo $this->Html->safe(Language::_('AdminMain.index.button_generate', true)); ?>
+    </a>
+</p>
+
+<?php if (!empty($batches)): ?>
+    <ul class="list-unstyled">
+    <?php foreach ($batches as $batch): ?>
+        <li>
+            <?php echo $this->Html->safe($batch->name); ?> –
+            <?php echo $this->Html->safe($batch->total_amount); ?> EUR –
+
+            <a href="<?php echo $this->base_uri; ?>plugin/sepa_export/admin_main/download/<?php echo $batch->id; ?>/"
+               class="text-primary" title="<?php echo $this->Html->safe(Language::_('AdminMain.index.link_download', true)); ?>">
+                <i class="fa fa-download"></i> <?php echo $this->Html->safe(Language::_('AdminMain.index.link_download', true)); ?>
+            </a> –
+
+            <a href="<?php echo $this->base_uri; ?>plugin/sepa_export/admin_main/delete/<?php echo $batch->id; ?>/"
+               class="text-danger"
+               onclick="return confirm('<?php echo $this->Html->safe(Language::_('AdminMain.index.confirm_delete', true)); ?>');"
+               title="<?php echo $this->Html->safe(Language::_('AdminMain.index.link_delete', true)); ?>">
+                <i class="fa fa-trash"></i> <?php echo $this->Html->safe(Language::_('AdminMain.index.link_delete', true)); ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p><?php echo $this->Html->safe(Language::_('AdminMain.index.no_batches', true)); ?></p>
+<?php endif; ?>

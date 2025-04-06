@@ -1,0 +1,23 @@
+<?php echo $this->Form->create(null, ['class' => 'form']); ?>
+
+<div class="form-group">
+    <label for="client_group">
+        <?php echo $this->Html->safe(Language::_('AdminSettings.index.client_group', true)); ?>
+    </label>
+    <?php echo $this->Form->select('client_group', $group_options, $selected_group); ?>
+</div>
+
+<div class="form-group">
+    <label for="creditor_id">
+        <?php echo $this->Html->safe(Language::_('AdminSettings.index.creditor_id', true)); ?>
+    </label>
+    <?php echo $this->Form->fieldText('creditor_id', $creditor_id); ?>
+</div>
+
+<div class="form-group">
+    <button class="btn btn-primary" type="submit">
+        <?php echo $this->Html->safe(Language::_('AdminSettings.index.submit', true)); ?>
+    </button>
+</div>
+
+<?php echo $this->Form->end(); ?>
